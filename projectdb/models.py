@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 # Create your models here.
 
+
 class Project(models.Model):
     STATUS_CHOICES = (
         ('Won', 'Won'),
@@ -14,7 +15,10 @@ class Project(models.Model):
         ('3D', '3D'),
         ('2D', '2D'),
         ('OBN', 'OBN'),
-        ('WAZ', 'WAZ')
+        ('WAZ', 'WAZ'),
+        ('2D Repro', '2D Repro'),
+        ('3D Repro', '3D Repro'),
+        ('OBN Repro', 'OBN Repro')
     )
     
     TYPE_CHOICES = (
@@ -26,8 +30,8 @@ class Project(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
-    technology = models.CharField(max_length=3, choices=TECHNOLOGY_CHOICES) 
-    type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+    technology = models.CharField(max_length=10, choices=TECHNOLOGY_CHOICES) 
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='MC')
     country = CountryField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
     created_at = models.DateTimeField(auto_now_add=True)
